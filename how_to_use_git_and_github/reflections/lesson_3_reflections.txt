@@ -3,3 +3,49 @@ your work local?
 
 A: When you want to share your work with other people (team members, the
 public, etc).
+
+Q: Why might you want to always pull changes manually rather than having
+Git automatically stay up-to-date with your remote repository?
+
+A: In case there is a change that you don't want to automatically have
+updated in your remote repo, which could cause conflicts with your local
+files and work.
+
+Q: Describe the differences between forks, clones, and branches.
+When would you use one instead of another?
+
+A: Forks are clones on the GitHub side. Clones are copies of a repo.
+Branches are used for working on code independently of the master
+branch. Forks are useful when you want to clone another user's repo and
+work on it independently of the original repo. Clones are used when you
+want to work on a specific repo locally (e.g. you can clone a repo from
+your GitHub account onto your local machine to work on it). And branches
+are useful for working on bug fixes, new functionality, etc.
+
+Q: What is the benefit of having a copy of the last known state of the
+remote stored locally?
+
+A: So you can reference it and avoid/fix/make easier issues when
+merging, etc.
+
+Q: How would you collaborate without using Git or GitHub? What would be
+easier, and what would be harder?
+
+A: You could collaborate via a shared drive of some sort, and use email
+and/or an instant messaging app for communication about when you update
+files on the shared drive. Not sure what would be easier about it, other
+than the fact that you could have complete privacy of your drive, if you
+were at all worried about hosting code on GitHub. It would be much more
+difficult to compare changes, work on the same file simultaneously, etc.
+
+Q: When would you want to make changes in a separate branch rather than
+directly in master? What benefits does each approach have?
+
+A: When you're working on a bug fix or new feature that you don't want
+to immediately commit to the master branch. Benefit is that you can work
+independently of the master branch, while still being able to maintain
+an updated code base of master (when needed), testing your work without
+having to commit to updating the master code. Benefit to working
+directly on master is that your updates are available to others right
+away, rather than waiting to merge in a separate branch. But IMHO, this
+is not a good enough benefit to warrant not using branches.
