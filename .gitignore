@@ -1,0 +1,5 @@
+# OS-specific
+.DS_Store
+
+# Course-related samples
+how_to_use_git_and_github/course_samples/

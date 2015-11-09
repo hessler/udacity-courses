@@ -1,0 +1,39 @@
+Q: How is the staging area different from the working directory and the
+repository? What value do you think it offers?
+
+A: Staging area holds files ready for commit, whereas working directory has all
+files, even if they are not added to the staging area. Value is that you can
+add just the files you want to the staging area rather than having all files
+added automatically.
+
+Q: How can you use the staging area to make sure you have one commit per
+logical change?
+
+A: You can use 'git diff --staged' to view the list of files that are
+staged, and ensure they are all part of a logical change set.
+
+Q: What are some situations when branches would be helpful in keeping
+your history organized? How would branches help?
+
+A: Helpful when you want to add a new feature to a project but want to
+keep the original code in tact. Branches help because you can dedicate
+a branch to a new feature rather than working on master branch.
+
+Q: How do the diagrams help you visualize the branch structure?
+
+A: They help show where things branch off from particular commits, and
+which commits/branches are tied to one another.
+
+Q: What is the result of merging two branches together? Why do we
+represent it in the diagram the way we do?
+
+A: It merges code together, thereby incorporating additions/deletions/
+changes between the two branches into one unified branch.
+
+Q: What are the pros and cons of Git’s automatic merging vs. always
+doing merges manually?
+
+A: Pro: Git does the heavy lifting for you by automatically merging
+files together so you don't have to worry about missing something doing
+it manually. Con: May be a bit of loss of control by having Git do the
+merge automatically, which results in merge conflicts.
