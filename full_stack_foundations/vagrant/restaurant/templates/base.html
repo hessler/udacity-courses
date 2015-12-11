@@ -1,0 +1,36 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" itemscope itemtype="http://schema.org/Person">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{% block title %}{% endblock %}</title>
+<meta name="description" content="{% block description %}{% endblock %}" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.0.1/css/foundation.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    
+    <div class="row">
+        <div class="top-bar">
+            <ul class="dropdown menu">
+                <li class="menu-text"><a href="{{ url_for('all_restaurants') }}" title="Restaurants Home"><i class="fa fa-cutlery logo"></i> Let's Eat!</a></li>
+            </ul>
+            {% block breadcrumbs %}
+            <ul class="breadcrumbs">
+                <li><a href="{{ url_for('all_restaurants') }}" title="Restaurants Home">Restaurants</a></li>
+                {% block breadcrumbs_items %}{% endblock %}
+            </ul>
+            {% endblock %}
+        </div>
+    </div>
+    
+    <div class="row">&nbsp;</div>
+    
+    <div class="row">
+        {% block content %}{% endblock %}
+    </div>
+    
+    <div class="row">&nbsp;</div>
+    
+</body>
+</html>

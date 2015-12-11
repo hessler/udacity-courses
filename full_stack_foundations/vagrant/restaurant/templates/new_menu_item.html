@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Add New Menu Item for {{ restaurant.name }}{% endblock %}
+{% block description %}Use this simple form to add a new menu item for {{ restaurant.name }}.{% endblock %}
+{% block breadcrumbs_items %}
+    <li>
+        <a href="{{ url_for('restaurant_menu', restaurant_id=restaurant.restaurant_id) }}" title="{{ restaurant.name }}">{{ restaurant.name }}</a>
+    </li>
+    <li>
+        <span class="show-for-sr">Current: </span> New Menu Item
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="columns">
+        <h2>New Menu Item for {{ restaurant.name }}</h2>
+        {% include 'flash_messages.html' %}
+        <form action="{{ url_for('new_menu_item', restaurant_id=restaurant.restaurant_id) }}" method="post">
+            <div class="row">
+                <div class="columns medium-8">
+                    <label for="item_name">Name:</label>
+                    <input type="text" name="name"/>
+                </div>
+                <div class="columns medium-2">
+                    <label for="item_name">Course:</label>
+                    <select name="course">
+                        <option value="Appetizer">Appetizer</option>
+                        <option value="Entree">Entree</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Beverage">Beverage</option>
+                    </select>
+                </div>
+                <div class="columns medium-2">
+                    <label for="item_name">Price:</label>
+                    <input type="text" name="price"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="columns medium-12">
+                    <label for="item_name">Description:</label>
+                    <input type="text" name="description"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="columns text-right">
+                    <a href="{{ url_for('restaurant_menu', restaurant_id=restaurant.restaurant_id) }}" title="Cancel" class="button input-button secondary">Cancel</a>
+                    <input type="submit" name="submit" value="Add +" class="button input-button submit"/>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

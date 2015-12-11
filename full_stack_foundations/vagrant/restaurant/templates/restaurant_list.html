@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Let's Eat! A Python/Flask Project for Restaurants and Menu Items.{% endblock %}
+{% block description %}A list of all restaurants.{% endblock %}
+{% block content %}
+        <div class="columns">
+            <h1>Restaurants</h1>
+            {% include 'flash_messages.html' %}
+            <ul>
+                {% for restaurant in restaurants %}
+                <li><a href="{{ url_for('restaurant_menu', restaurant_id=restaurant.restaurant_id) }}" title="{{ restaurant.name }}">{{ restaurant.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+{% endblock %}

@@ -269,5 +269,8 @@ def main():
         server.socket.close()
 
 
-if __name__ == '__main__':
-    main()
+# Uncomment if we want to run the main function automatically.
+# For now, since this file is not meant to be used, it's commented out.
+# In place of triggering this file, use 'restaurant/project.py'.
+#if __name__ == '__main__':
+#    main()

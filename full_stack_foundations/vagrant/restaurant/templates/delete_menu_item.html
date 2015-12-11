@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Delete Menu Item{% endblock %}
+{% block description %}Use this page to delete the specified menu item.{% endblock %}
+{% block breadcrumbs_items %}
+    <li>
+        <a href="{{ url_for('restaurant_menu', restaurant_id=restaurant.restaurant_id) }}" title="{{ restaurant.name }}">{{ restaurant.name }}</a>
+    </li>
+    <li>
+        <span class="show-for-sr">Current: </span> Delete Menu Item
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="columns">
+        <h2>Delete Menu Item</h2>
+        {% include 'flash_messages.html' %}
+        <p>Are you sure you want to delete <strong>{{ menu_item.name }}</strong> from the <em>{{ restaurant.name }}</em> menu?</p>
+        <form action="{{ url_for('delete_menu_item', restaurant_id=restaurant.restaurant_id, menu_item_id=menu_item.menu_item_id) }}" method="post">
+            <div class="row">
+                <div class="columns text-right">
+                    <a href="{{ url_for('restaurant_menu', restaurant_id=restaurant.restaurant_id) }}" title="Cancel" class="button input-button secondary">Cancel</a>
+                    <input type="submit" name="submit" value="Delete" class="button input-button submit"/>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
