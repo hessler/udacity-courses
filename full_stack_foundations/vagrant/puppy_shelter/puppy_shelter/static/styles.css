@@ -1,0 +1,95 @@
+.top-bar .menu-text {
+    font-size: 1.5rem;
+}
+.top-bar .logo {
+    font-size: 2.25rem;
+}
+.top-bar .menu li a {
+    padding-left: 0;
+    padding-right: 0;
+}
+.top-bar .menu a,
+.top-bar .menu a:link,
+.top-bar .menu a:visited,
+.top-bar .menu a:hover,
+.top-bar .menu a:active {
+    color: #2c2c2c;
+}
+.top-bar .breadcrumbs {
+    border-top: 1px solid #ccc;
+    margin: 0.25rem 0.7rem;
+    padding: 0.5rem 0.7rem 0 0.25rem;
+}
+
+h2 .button {
+    margin: 0 0.75rem 0.5rem 0.75rem;
+    font-weight: bold;
+    border-radius: 2rem 2rem 2rem 2rem;
+    -moz-border-radius: 2rem 2rem 2rem 2rem;
+    -webkit-border-radius: 2rem 2rem 2rem 2rem;
+}
+h2 {
+    font-weight: 200;
+    margin-bottom: 1rem;
+}
+h4 {
+    font-weight: 500;
+    margin-bottom: 0;
+}
+
+form label {
+    font-weight: 500;
+}
+
+.puppy-card {
+    padding: 0.5rem;
+    text-align: left;
+}
+ul .puppy-card {
+    font-weight: bold;
+    text-align: center;
+}
+.puppy-card .contents {
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+}
+ul .puppy-card .contents {
+    padding: 0.5rem;
+}
+.puppy-card img {
+    float: left;
+    height: auto;
+    width: 100%;
+}
+ul .puppy-card img {
+    float: none;
+    height: 200px;
+    margin-bottom: 0.4125rem;
+    margin-right: 0;
+    width: auto;
+}
+.puppy-card .contents:after {
+    clear: both;
+    content: " ";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.button-lineup a.button,
+.button-lineup .button {
+    font-weight: bold;
+}
+.button-lineup a.button i,
+.button-lineup .button i {
+    margin-right: 0.25rem;
+}
+.button-lineup.round a.button,
+.button-lineup.round .button {
+    border-radius: 2rem 2rem 2rem 2rem;
+    -moz-border-radius: 2rem 2rem 2rem 2rem;
+    -webkit-border-radius: 2rem 2rem 2rem 2rem;
+}
+.text-larger {
+    font-size: larger;
+}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ shelter.name }} | Puppy Shelter{% endblock %}
+{% block description %}Information about the {{ shelter.name }} Puppy Shelter.{% endblock %}
+{% block breadcrumbs_items %}
+    <li>
+        <span class="show-for-sr">Current: </span> {{ shelter.name }}
+    </li>
+{% endblock %}
+{% block content %}
+        <div class="columns">
+            <h1>{{ shelter.name }}</h1>
+            {% include 'flash_messages.html' %}
+            <p>
+                <strong>Address:</strong> {{ shelter.address }}, {{ shelter.city }}, {{ shelter.state }} {{ shelter.zip_code }}<br />
+                <strong>Occupancy:</strong> {{ shelter.current_occupancy }} / {{ shelter.maximum_capacity }} <small><em>({{ (shelter.current_occupancy/shelter.maximum_capacity * 100)|int }}% capacity)</em></small><br />
+                <strong>Website:</strong> <a href="{{ shelter.website }}" title="Visit the {{ shelter.name }} website" target="_blank">{{ shelter.website }}</small></a>
+            </p>
+            <h2>Puppies {% if (shelter.current_occupancy/shelter.maximum_capacity * 100)|int < 100 %}<div style="display: inline-block;"><a href="{{ url_for('new_puppy', shelter_id=shelter.shelter_id) }}"
+                title="Add New Puppy" class="button small"><i class="fa fa-plus"></i></a></div>{% endif %}</h2>
+            <ul>
+            {% for puppy in puppies %}
+                <div class="columns medium-3 puppy-card{% if loop.index == puppies|length %} end{% endif %}">
+                    <a href="{{ url_for('puppy_info', puppy_id=puppy.puppy_id) }}" title="View {{ puppy.name }}">
+                        <div class="contents">
+                            <img src="{{ puppy.picture }}" alt="{{ puppy.name }}" /><br />{{ puppy.name }}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </ul>
+        </div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}{{ puppy.name }} | Puppy Shelter{% endblock %}
+{% block description %}Information about {{ puppy.name }}.{% endblock %}
+{% block breadcrumbs_items %}
+    <li>
+        {% if shelter %}
+        <a href="{{ url_for('shelter_info', shelter_id=shelter.shelter_id) }}" title="{{ shelter.name }}">{{ shelter.name }}</a>
+        {% else %}
+        <a href="{{ url_for('adopted_puppies') }}" title="Adopted Puppies">Adopted Puppies</a>
+        {% endif %}
+    </li>
+    <li>
+        <span class="show-for-sr">Current: </span> {{ puppy.name }}</em>
+    </li>
+{% endblock %}
+{% block content %}
+        <div class="columns">
+            <div class="row">
+                <div class="columns medium-12">
+                    {% include 'flash_messages.html' %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="columns small-12 medium-3 puppy-card">
+                    <div class="contents">
+                        <img src="{{ puppy.picture }}" alt="{{ puppy.name }}" />
+                        
+                    </div>
+                </div>
+                <div class="columns small-12 medium-9">
+                    <h1>{{ puppy.name }} <small><em>({{ puppy.gender }})</em></small></h1>
+                    <p>
+                        <strong>Date of Birth:</strong> {{ puppy.date_of_birth }}<br />
+                        <strong>Weight:</strong> {{ puppy.weight }} lbs.<br />
+                        {% if shelter %}
+                        <strong>Shelter:</strong> <a href="{{ url_for('shelter_info', shelter_id=shelter.shelter_id) }}" title="{{ shelter.name }} Information">{{ shelter.name }}</a>
+                        {% else %}
+                        <strong>Owner:</strong> {{ puppy.owner }}
+                        {% endif %}
+                    </p>
+                    <p class="button-lineup">
+                        <a href="{{ url_for('edit_puppy', puppy_id=puppy.puppy_id) }}" class="button small text-larger" title="Edit"><i class="fa fa-pencil"></i> Edit</a>
+                        {% if shelter %}
+                        <a href="{{ url_for('adopt_puppy', puppy_id=puppy.puppy_id) }}" class="button small text-larger" title="Transfer"><i class="fa fa-paw"></i> Adopt</a>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+{% endblock %}

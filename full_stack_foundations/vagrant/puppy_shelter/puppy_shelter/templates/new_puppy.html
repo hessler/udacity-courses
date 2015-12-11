@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}New Puppy | Puppy Shelter{% endblock %}
+{% block description %}Use this simple form to add a new puppy to a shelter.{% endblock %}
+{% block breadcrumbs_items %}
+    <li>
+        <a href="{{ url_for('shelter_info', shelter_id=shelter.shelter_id) }}" title="{{ shelter.name }}">{{ shelter.name }}</a>
+    </li>
+    <li>
+        <span class="show-for-sr">Current: </span> New Puppy
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="columns">
+        <h1>New Puppy <small><em>({{ shelter.name }})</em></small></h1>
+        {% include 'flash_messages.html' %}
+        <form action="{{ url_for('new_puppy', shelter_id=shelter.shelter_id) }}" method="post">
+            <input type="hidden" name="shelter_id" value="{{ shelter.shelter_id }}"/>
+            <div class="row">
+                <div class="columns medium-4">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" required="true"/>
+                </div>
+                <div class="columns medium-4">
+                    <label for="picture">Picture:</label>
+                    <input type="text" name="picture" value="http://pngimg.com/upload/small/dog_PNG2446.png"/>
+                </div>
+                <div class="columns medium-2">
+                    <label for="gender">Gender:</label>
+                    <select name="gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+                <div class="columns medium-2">
+                    <label for="weight">Weight:</label>
+                    <input type="number" name="weight" min="1" max="40" step="1" value="4" required="true"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="columns text-right">
+                    <a href="{{ url_for('shelter_info', shelter_id=shelter.shelter_id) }}" title="Cancel" class="button input-button secondary">Cancel</a>
+                    <input type="submit" name="submit" value="Add +" class="button input-button submit"/>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

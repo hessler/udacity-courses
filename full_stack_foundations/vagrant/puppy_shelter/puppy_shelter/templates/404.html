@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Page Not Found | Puppy Shelter{% endblock %}
+{% block description %}This isn't the page you're looking for. Sorry about that.{% endblock %}
+{% block content %}
+        <div class="columns">
+            <h1>{% if not headline_text %}Uh-oh. Something isn't right.{% else %}{{ headline_text }}{% endif %}</h1>
+            {% include 'flash_messages.html' %}
+            <p>The page you requested can't be found.</p>
+            <p><a href="{{ url_for('index') }}" title="Get Back on Track" class="button">Get Back on Track</a></p>
+        </div>
+{% endblock %}

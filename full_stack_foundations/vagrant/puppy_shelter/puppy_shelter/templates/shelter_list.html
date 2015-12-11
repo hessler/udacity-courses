@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Puppy Shelter | A Python/Flask Project for Udacity's Full Stack Foundations Course.{% endblock %}
+{% block description %}A list of all Puppy Shelters.{% endblock %}
+{% block content %}
+        <div class="columns">
+            <h1>Puppy Shelters</h1>
+            {% include 'flash_messages.html' %}
+            <ul>
+                {% for shelter in shelters %}
+                <li><a href="{{ url_for('shelter_info', shelter_id=shelter.shelter_id) }}" title="{{ shelter.name }}">{{ shelter.name }}</a></li>
+                {% endfor %}
+            </ul>
+            <p class="button-lineup">
+                <a href="{{ url_for('adopted_puppies') }}" title="Adopted Puppies" class="button"><i class="fa fa-paw"></i> View Adopted Puppies</a>
+            </p>
+        </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Adopted Puppies | Puppy Shelter{% endblock %}
+{% block description %}A list of all adopted puppies.{% endblock %}
+{% block breadcrumbs_items %}
+    <li>
+        <span class="show-for-sr">Current: </span> Adopted Puppies
+    </li>
+{% endblock %}
+{% block content %}
+        <div class="columns">
+            <h1>Adopted Puppies</h1>
+            {% include 'flash_messages.html' %}
+            {% if not puppies or puppies|length == 0 %}
+            <p>No puppies have been adopted yet.</p>
+            {% else %}
+            <ul>
+            {% for puppy in puppies %}
+                <div class="columns medium-3 puppy-card{% if loop.index == puppies|length %} end{% endif %}">
+                    <a href="{{ url_for('puppy_info', puppy_id=puppy.puppy_id) }}" title="View {{ puppy.name }}">
+                        <div class="contents">
+                            <img src="{{ puppy.picture }}" alt="{{ puppy.name }}" /><br />{{ puppy.name }}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+{% endblock %}

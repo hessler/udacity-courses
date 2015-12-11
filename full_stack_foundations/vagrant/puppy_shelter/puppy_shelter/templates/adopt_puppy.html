@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Adopt Puppy: {{ puppy.name }} | Puppy Shelter{% endblock %}
+{% block description %}Use this simple form to adopt a puppy.{% endblock %}
+{% block breadcrumbs_items %}
+    <li>
+        <a href="{{ url_for('shelter_info', shelter_id=shelter.shelter_id) }}" title="{{ shelter.name }}">{{ shelter.name }}</a>
+    </li>
+    <li>
+        <a href="{{ url_for('puppy_info', puppy_id=puppy.puppy_id) }}" title="{{ puppy.name }}">{{ puppy.name }}</a>
+    </li>
+    <li>
+        <span class="show-for-sr">Current: </span> Adopt</em>
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="columns">
+        <h1>Adopt Puppy</h1>
+        {% include 'flash_messages.html' %}
+        <form action="{{ url_for('adopt_puppy', puppy_id=puppy.puppy_id) }}" method="post">
+            <input type="hidden" name="shelter_id" value="{{ shelter.shelter_id }}"/>
+            <div class="row">
+                <div class="columns small-12 medium-3 puppy-card">
+                    <div class="contents">
+                        <img src="{{ puppy.picture }}" alt="{{ puppy.name }}" />
+                    </div>
+                </div>
+                <div class="columns small-12 medium-9">
+                    <h2>{{ puppy.name }} <small><em>({{ puppy.gender }})</em></small></h2>
+                    <div class="row">
+                        <div class="columns medium-8 small-12 end">
+                            <label for="name">Your Name:</label>
+                            <input type="text" name="name" required="true"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="columns medium-8 small-12 text-right">
+                            <a href="{{ url_for('puppy_info', puppy_id=puppy.puppy_id) }}" title="Cancel" class="button input-button secondary">Cancel</a>
+                            <input type="submit" name="submit" value="Adopt!" class="button input-button submit"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
