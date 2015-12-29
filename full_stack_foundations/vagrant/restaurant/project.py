@@ -26,7 +26,66 @@ def all_restaurants():
     return render_template('restaurant_list.html', restaurants=restaurants)
 
 
-@app.route('/restaurants/<int:restaurant_id>/menu/')
+@app.route('/restaurant/new/', methods=['GET', 'POST'])
+def new_restaurant():
+    """Function to return a page to add a new restaurant."""
+
+    if request.method == 'POST':
+        new_item = get_or_create(SESSION, Restaurant,
+                                 name=request.form['name'])
+        flash("New restaurant created: {}".format(new_item.name))
+        return redirect(url_for('all_restaurants'))
+    else:
+        return render_template('new_restaurant.html')
+
+
+@app.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
+def edit_restaurant(restaurant_id):
+    """Function to return a page to edit a restaurant.
+
+    Args:
+        restaurant_id: ID of the restaurant to edit.
+    """
+
+    restaurant = SESSION.query(Restaurant)\
+        .filter_by(restaurant_id=restaurant_id).one()
+    if not restaurant:
+        return redirect(url_for('all_restaurants'))
+    if request.method == 'POST':
+        restaurant.name = request.form['name']
+        SESSION.add(restaurant)
+        SESSION.commit()
+        flash("{} updated!".format(restaurant.name))
+        return redirect(url_for('restaurant_menu',
+                                restaurant_id=restaurant_id))
+    else:
+        return render_template('edit_restaurant.html',
+                               restaurant=restaurant)
+
+
+@app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
+def delete_restaurant(restaurant_id):
+    """Function to return a page to delete a restaurant.
+
+    Args:
+        restaurant_id: ID of the restaurant to delete.
+    """
+
+    restaurant = SESSION.query(Restaurant)\
+        .filter_by(restaurant_id=restaurant_id).one()
+    if not restaurant:
+        return redirect(url_for('all_restaurants'))
+    if request.method == 'POST':
+        SESSION.delete(restaurant)
+        SESSION.commit()
+        flash("{} deleted.".format(restaurant.name))
+        return redirect(url_for('all_restaurants'))
+    else:
+        return render_template('delete_restaurant.html', restaurant=restaurant)
+
+
+@app.route('/restaurant/<int:restaurant_id>/')
+@app.route('/restaurant/<int:restaurant_id>/menu/')
 def restaurant_menu(restaurant_id):
     """Function to return the menu for the specified restaurant.
 
@@ -45,7 +104,7 @@ def restaurant_menu(restaurant_id):
                            menu_items=menu_items)
 
 
-@app.route('/restaurants/<int:restaurant_id>/new/', methods=['GET', 'POST'])
+@app.route('/restaurant/<int:restaurant_id>/new/', methods=['GET', 'POST'])
 def new_menu_item(restaurant_id):
     """Function to return a page to add a new menu item.
 
@@ -72,7 +131,7 @@ def new_menu_item(restaurant_id):
         return render_template('new_menu_item.html', restaurant=restaurant)
 
 
-@app.route('/restaurants/<int:restaurant_id>/<int:menu_item_id>/edit/',
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_item_id>/edit/',
            methods=['GET', 'POST'])
 def edit_menu_item(restaurant_id, menu_item_id):
     """Function to return a page to edit a menu item.
@@ -113,7 +172,7 @@ def edit_menu_item(restaurant_id, menu_item_id):
                                restaurant=restaurant, menu_item=menu_item)
 
 
-@app.route('/restaurants/<int:restaurant_id>/<int:menu_item_id>/delete/',
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_item_id>/delete/',
            methods=['GET', 'POST'])
 def delete_menu_item(restaurant_id, menu_item_id):
     """Function to return a page to delete a menu item.
@@ -143,7 +202,15 @@ def delete_menu_item(restaurant_id, menu_item_id):
 
 
 # API Endpoints (GET Request)
-@app.route('/restaurants/<int:restaurant_id>/menu/json')
+@app.route('/restaurants/json/')
+def restaurants_json():
+    """Function to return a JSON list of restaurants."""
+
+    restaurants = SESSION.query(Restaurant).all()
+    return jsonify(Restaurants=[item.serialize for item in restaurants])
+
+@app.route('/restaurant/<int:restaurant_id>/json/')
+@app.route('/restaurant/<int:restaurant_id>/menu/json/')
 def restaurant_menu_json(restaurant_id):
     """Function to return a menu (in JSON) for the specified restaurant.
 
@@ -160,7 +227,8 @@ def restaurant_menu_json(restaurant_id):
         .order_by(MenuItem.course)
     return jsonify(MenuItems=[item.serialize for item in menu_items])
 
-@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_item_id>/json')
+@app.route('/restaurant/<int:restaurant_id>/<int:menu_item_id>/json/')
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_item_id>/json/')
 def menu_item_json(restaurant_id, menu_item_id):
     """Function to return a menu item (in JSON).
 

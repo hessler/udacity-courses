@@ -16,6 +16,15 @@ class Restaurant(BASE):
     name = Column(String(80), nullable=False)
     restaurant_id = Column(Integer, primary_key=True)
 
+    @property
+    def serialize(self):
+        """Method to return serialized JSON object of class data."""
+
+        return {
+            'name': self.name,
+            'restaurant_id': self.restaurant_id
+        }
+
 
 class MenuItem(BASE):
     """A class to store information for a menu item."""
@@ -35,8 +44,8 @@ class MenuItem(BASE):
 
         return {
             'name': self.name,
-            'description': self.description,
             'menu_item_id': self.menu_item_id,
+            'description': self.description,
             'price': self.price,
             'course': self.course
         }

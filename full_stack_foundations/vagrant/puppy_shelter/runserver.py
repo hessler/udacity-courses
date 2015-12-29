@@ -1,3 +1,8 @@
+"""
+This module provides logic for initializing the database and
+running the Puppy Shelter project.
+"""
+
 from puppy_shelter import app
 from puppy_shelter.database import init_db
 
