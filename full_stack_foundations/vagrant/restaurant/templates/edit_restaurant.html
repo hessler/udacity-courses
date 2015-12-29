@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Edit Restaurant{% endblock %}
+{% block description %}Use this simple form to edit the specified restaurant.{% endblock %}
+{% block breadcrumbs_items %}
+    <li>
+        <a href="{{ url_for('restaurant_menu', restaurant_id=restaurant.restaurant_id) }}" title="{{ restaurant.name }}">{{ restaurant.name }}</a>
+    </li>
+    <li>
+        <span class="show-for-sr">Current: </span> Edit Restaurant
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="columns">
+        <h2>Edit Restaurant</h2>
+        {% include 'flash_messages.html' %}
+        <form action="{{ url_for('edit_restaurant', restaurant_id=restaurant.restaurant_id) }}" method="post">
+            <div class="row">
+                <div class="columns medium-8 end">
+                    <label for="item_name">Name:</label>
+                    <input type="text" name="name" value="{{ restaurant.name }}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="columns medium-8 end text-right">
+                    <a href="{{ url_for('restaurant_menu', restaurant_id=restaurant.restaurant_id) }}" title="Cancel" class="button input-button secondary">Cancel</a>
+                    <input type="submit" name="submit" value="Update" class="button input-button submit"/>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -3,7 +3,8 @@
 {% block description %}A list of all restaurants.{% endblock %}
 {% block content %}
         <div class="columns">
-            <h1>Restaurants</h1>
+            <h1>Restaurants <div style="display: inline-block;"><a href="{{ url_for('new_restaurant') }}"
+            title="Add New Menu Item" class="button small"><i class="fa fa-plus"></i></a></div></h1>
             {% include 'flash_messages.html' %}
             <ul>
                 {% for restaurant in restaurants %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Add New Restaurant{% endblock %}
+{% block description %}Use this simple form to add a new restaurant.{% endblock %}
+{% block breadcrumbs_items %}
+    <li>
+        <span class="show-for-sr">Current: </span> New Restaurant
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="columns">
+        <h2>New Restaurant</h2>
+        {% include 'flash_messages.html' %}
+        <form action="{{ url_for('new_restaurant') }}" method="post">
+            <div class="row">
+                <div class="columns medium-8 end">
+                    <label for="item_name">Name:</label>
+                    <input type="text" name="name"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="columns medium-8 end text-right">
+                    <a href="{{ url_for('all_restaurants') }}" title="Cancel" class="button input-button secondary">Cancel</a>
+                    <input type="submit" name="submit" value="Add +" class="button input-button submit"/>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
