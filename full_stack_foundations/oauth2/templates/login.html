@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+</head>
+<body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1645951045670145',
+      cookie     : true,  // enable cookies to allow server to access session
+      xfbml      : true,  // parse social plugins on the page
+      version    : 'v2.5'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+	<div id="signinButton">
+		<span class="g-signin"
+		    data-scope="openid email"
+		    data-clientid="968766890952-v7mtqmhc57u69euklks5jp5v0p94i0j3.apps.googleusercontent.com"
+		    data-redirecturi="postmessage"
+		    data-accesstype="offline"
+		    data-cookiepolicy="single_host_origin"
+		    data-callback="signInCallback"
+		    data-approvalprompt="force">
+		</span>
+	</div>
+
+    <div id="fbSigninButton">
+        <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
+            <a href="javascript:sendTokenToServer()">Login with Facebook</a>
+        </fb:login-button>
+    </div>
+
+	<div id="result"></div>
+
+<script type="text/javascript">
+function signInCallback(authResult) {
+    if (authResult['code']) {
+        // Hide sign-in buttons
+        $('#signinButton').hide();
+        $('#fbSigninButton').hide();
+        // Send one-time use code to the server. If the server responds,
+        // write 'login successful' message and redirect to main page.
+        $.ajax({
+            type: 'POST',
+            url: '/gconnect?state={{STATE}}',
+            processData: false,
+            contentType: 'application/octet-stream; charset=utf-8',
+            data: authResult['code'],
+            success: function(result) {
+                if (result) {
+                    $('#result').html('Login Successful!<br>' + result + '<br>Redirecting...');
+                    setTimeout(function() {
+                        window.location.href = "/restaurant";
+                    }, 4000);
+                } else if (authResult['error']) {
+                    console.log('There was an error authorizing: ' + authResult['error']);
+                } else {
+                    $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                }
+            }
+        });
+    }
+}
+
+function sendTokenToServer() {
+    var accessToken = FB.getAuthResponse()['accessToken'];
+    console.log("Welcome! Fetching access token...");
+    console.log(accessToken);
+    FB.api('/me', function(response) {
+        // Hide sign-in buttons
+        $('#signinButton').hide();
+        $('#fbSigninButton').hide();
+        console.log("Successful login for: " + response.name);
+        $.ajax({
+            type: 'POST',
+            url: '/fbconnect?state={{STATE}}',
+            processData: false,
+            data: accessToken,
+            contentType: 'application/octet-stream; charset=utf-8',
+            success: function(result) {
+                // Handle or verify server response if necessary
+                if (result) {
+                    $('#result').html('Login Successful!<br>' + result + '<br>Redirecting...');
+                    setTimeout(function() {
+                        window.location.href = "/restaurant";
+                    }, 4000);
+                } else {
+                    $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                }
+            }
+        })
+    })
+}
+</script>
+</body>
+</html>
